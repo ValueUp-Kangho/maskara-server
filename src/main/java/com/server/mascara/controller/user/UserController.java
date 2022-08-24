@@ -3,6 +3,7 @@ package com.server.mascara.controller.user;
 import com.server.mascara.domain.response.CommonResult;
 import com.server.mascara.domain.response.ListResult;
 import com.server.mascara.domain.user.dto.UserActivityDto;
+import com.server.mascara.domain.user.response.UserBasicInfoResponse;
 import com.server.mascara.domain.user.response.UserInfoResponse;
 import com.server.mascara.entity.User;
 import com.server.mascara.service.ResponseService;
@@ -37,8 +38,18 @@ public class UserController {
         User user = userService.findByUsername(id);
         List<UserActivityDto> userActivityDto = activityRecordService.getUserActivityDtoByUser(user);
 
-        return new UserInfoResponse(user.getNickName(), user.getPoint(), user.getAddress(), userActivityDto);
+        return new UserInfoResponse(user.getNickName(), user.getPoint(), user.getResidence(), userActivityDto);
     }
+
+    @GetMapping("/mypage/edit")
+    public UserBasicInfoResponse getUserBasicInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+
+        User user = userService.findByUsername(id);
+        return new UserBasicInfoResponse(user.getUsername(), user.getNickName(), user.getResidence());
+    }
+
 
     @PutMapping(value = "/user")
     public CommonResult modify(@RequestParam String name) {

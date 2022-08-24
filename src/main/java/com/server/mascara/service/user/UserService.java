@@ -35,7 +35,7 @@ public class UserService {
                 .username(form.getId())
                 .password(passwordEncoder.encode(form.getPassword()))
                 .nickName(form.getNickname())
-                .email(form.getResidence())
+                .residence(form.getResidence())
                 .roles(Collections.singletonList("ROLE_USER"))
                 .point(0)
                 .build();
