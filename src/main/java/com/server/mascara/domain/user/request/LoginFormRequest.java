@@ -1,4 +1,4 @@
-package com.server.mascara.domain.user;
+package com.server.mascara.domain.user.request;
 
 
 import lombok.AllArgsConstructor;

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class UserOrderRecord {
+public class OrderRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
