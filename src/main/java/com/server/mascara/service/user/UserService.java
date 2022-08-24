@@ -1,6 +1,6 @@
 package com.server.mascara.service.user;
 
-import com.server.mascara.domain.user.RegisterFormRequest;
+import com.server.mascara.domain.user.request.RegisterFormRequest;
 import com.server.mascara.entity.User;
 import com.server.mascara.advice.exception.UserNotFoundException;
 import com.server.mascara.respository.user.UserRepository;
@@ -35,7 +35,7 @@ public class UserService {
                 .username(form.getId())
                 .password(passwordEncoder.encode(form.getPassword()))
                 .nickName(form.getNickname())
-                .email(form.getResidence())
+                .residence(form.getResidence())
                 .roles(Collections.singletonList("ROLE_USER"))
                 .point(0)
                 .build();

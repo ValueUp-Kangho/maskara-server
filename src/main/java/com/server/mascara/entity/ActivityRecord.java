@@ -1,10 +1,12 @@
 package com.server.mascara.entity;
 
+import lombok.Getter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class UserActivityRecord {
+@Getter
+public class ActivityRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

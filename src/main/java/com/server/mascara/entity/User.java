@@ -34,11 +34,10 @@ public class User implements UserDetails {
     @Column(nullable = true, unique = true)
     private String nickName;
 
-    private String email;
     @Column(nullable = false)
     private int point;
 
-    private String address;
+    private String residence;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

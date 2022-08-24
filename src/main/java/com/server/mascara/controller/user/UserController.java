@@ -1,17 +1,25 @@
 package com.server.mascara.controller.user;
 
-import com.server.mascara.config.security.JwtTokenProvider;
+import com.server.mascara.advice.exception.FieldErrorException;
 import com.server.mascara.domain.response.CommonResult;
 import com.server.mascara.domain.response.ListResult;
-import com.server.mascara.domain.response.SingleResult;
+import com.server.mascara.domain.user.dto.UserActivityDto;
+import com.server.mascara.domain.user.request.EditFormRequest;
+import com.server.mascara.domain.user.response.UserBasicInfoResponse;
+import com.server.mascara.domain.user.response.UserInfoResponse;
 import com.server.mascara.entity.User;
 import com.server.mascara.service.ResponseService;
+import com.server.mascara.service.activityRecord.ActivityRecordService;
 import com.server.mascara.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,8 +27,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final JwtTokenProvider jwtTokenProvider;
-    private final PasswordEncoder passwordEncoder;
+    private final ActivityRecordService activityRecordService;
     private final ResponseService responseService;
 
     @GetMapping("/users")
@@ -28,22 +35,43 @@ public class UserController {
         return responseService.getListResult(userService.findAll(), 200, "모든 회원 조회");
     }
 
-    @GetMapping("/user")
-    public SingleResult<User> findUser() {
+    @GetMapping("/mypage")
+    public UserInfoResponse getUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
 
-        return responseService.getSingleResult(userService.findByUsername(id), 200, "회원 조회");
+        User user = userService.findByUsername(id);
+        List<UserActivityDto> userActivityDto = activityRecordService.getUserActivityDtoByUser(user);
+
+        return new UserInfoResponse(user.getNickName(), user.getPoint(), user.getResidence(), userActivityDto);
     }
 
-    @PutMapping(value = "/user")
-    public CommonResult modify(@RequestParam String name) {
+    @GetMapping("/mypage/edit")
+    public UserBasicInfoResponse getUserBasicInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+
+        User user = userService.findByUsername(id);
+        return new UserBasicInfoResponse(user.getUsername(), user.getNickName(), user.getResidence());
+    }
+
+    @Transactional
+    @PutMapping("/mypage/edit")
+    public CommonResult modify(@Validated @ModelAttribute EditFormRequest form, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            throw new FieldErrorException();
+        }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
         User user = userService.findByUsername(id);
-        user.setNickName(name);
-        return responseService.getCommonResult(200, name + "님의 닉네임 변경");
+
+        user.setUsername(form.getId());
+        user.setNickName(form.getNickname());
+        user.setResidence(form.getResidence());
+
+        return responseService.getCommonResult(200, "마이페이지 수정 성공");
     }
 
     @DeleteMapping(value = "/user/{userId}")
