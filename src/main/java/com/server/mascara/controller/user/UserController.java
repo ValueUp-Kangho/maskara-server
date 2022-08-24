@@ -1,8 +1,10 @@
 package com.server.mascara.controller.user;
 
+import com.server.mascara.advice.exception.FieldErrorException;
 import com.server.mascara.domain.response.CommonResult;
 import com.server.mascara.domain.response.ListResult;
 import com.server.mascara.domain.user.dto.UserActivityDto;
+import com.server.mascara.domain.user.request.EditFormRequest;
 import com.server.mascara.domain.user.response.UserBasicInfoResponse;
 import com.server.mascara.domain.user.response.UserInfoResponse;
 import com.server.mascara.entity.User;
@@ -12,6 +14,9 @@ import com.server.mascara.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,15 +55,23 @@ public class UserController {
         return new UserBasicInfoResponse(user.getUsername(), user.getNickName(), user.getResidence());
     }
 
+    @Transactional
+    @PutMapping("/mypage/edit")
+    public CommonResult modify(@Validated @ModelAttribute EditFormRequest form, BindingResult bindingResult) {
 
-    @PutMapping(value = "/user")
-    public CommonResult modify(@RequestParam String name) {
+        if (bindingResult.hasErrors()) {
+            throw new FieldErrorException();
+        }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
         User user = userService.findByUsername(id);
-        user.setNickName(name);
-        return responseService.getCommonResult(200, name + "님의 닉네임 변경");
+
+        user.setUsername(form.getId());
+        user.setNickName(form.getNickname());
+        user.setResidence(form.getResidence());
+
+        return responseService.getCommonResult(200, "마이페이지 수정 성공");
     }
 
     @DeleteMapping(value = "/user/{userId}")
