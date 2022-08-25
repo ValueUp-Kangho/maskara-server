@@ -57,7 +57,7 @@ public class UserController {
 
     @Transactional
     @PutMapping("/mypage/edit")
-    public CommonResult modify(@Validated @ModelAttribute EditFormRequest form, BindingResult bindingResult) {
+    public CommonResult modify(@Validated @RequestBody EditFormRequest form, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             throw new FieldErrorException();
