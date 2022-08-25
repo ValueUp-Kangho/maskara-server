@@ -1,3 +1,12 @@
+---
+name: Bug
+about: "\b어떤 버그가 발생했는지 알려주세요!"
+title: "[Bug]"
+labels: "\U0001F41E Bug"
+assignees: ''
+
+---
+
 ## ❌ 버그 발생
 버그가 발생한 상황을 적어주세요.
 
