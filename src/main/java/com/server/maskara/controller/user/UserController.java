@@ -35,7 +35,7 @@ public class UserController {
         return responseService.getListResult(userService.findAll(), 200, "모든 회원 조회");
     }
 
-    @GetMapping("/mypage")
+    @GetMapping("/user/record")
     public UserInfoResponse getUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
@@ -46,7 +46,7 @@ public class UserController {
         return new UserInfoResponse(user.getNickName(), user.getPoint(), user.getResidence(), userActivityDto);
     }
 
-    @GetMapping("/mypage/edit")
+    @GetMapping("/user/edit")
     public UserBasicInfoResponse getUserBasicInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @Transactional
-    @PutMapping("/mypage/edit")
+    @PutMapping("/user/edit")
     public CommonResult modify(@Validated @RequestBody EditFormRequest form, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {

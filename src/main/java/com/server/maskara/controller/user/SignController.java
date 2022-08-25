@@ -29,7 +29,7 @@ public class SignController {
     private final ResponseService responseService;
 
     @PostMapping("/login")
-    public SingleResult<String> signIn(@Validated @RequestBody LoginFormRequest form, BindingResult bindingResult) {
+    public SingleResult<String> login(@Validated @RequestBody LoginFormRequest form, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             throw new FieldErrorException();
