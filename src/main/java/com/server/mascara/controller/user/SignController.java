@@ -14,10 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -32,7 +29,7 @@ public class SignController {
     private final ResponseService responseService;
 
     @PostMapping("/login")
-    public SingleResult<String> signIn(@Validated @ModelAttribute LoginFormRequest form, BindingResult bindingResult) {
+    public SingleResult<String> signIn(@Validated @RequestBody LoginFormRequest form, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             throw new FieldErrorException();
@@ -49,7 +46,7 @@ public class SignController {
     }
 
     @PostMapping(value = "/signup")
-    public CommonResult signUp(@Valid @ModelAttribute RegisterFormRequest form, BindingResult bindingResult) {
+    public CommonResult signUp(@Valid @RequestBody RegisterFormRequest form, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             throw new FieldErrorException();
