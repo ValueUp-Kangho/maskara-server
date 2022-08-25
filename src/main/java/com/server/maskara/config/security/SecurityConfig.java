@@ -30,13 +30,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .httpBasic().disable()
-                .cors()
-
-                .and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
 
+                .apply(new CustomDsl())
+                .and()
                 .authorizeRequests()
                 .antMatchers("/*/login", "/*/login/**", "/*/signup", "/*/signup/**").permitAll()
                 .anyRequest().hasRole("USER")
@@ -56,17 +55,12 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//
-//        configuration.addAllowedOrigin("*");
-//        configuration.addAllowedHeader("*");
-//        configuration.addAllowedMethod("*");
-//        configuration.setAllowCredentials(true);
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
+    private class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {
+        @Override
+        public void configure(HttpSecurity http) {
+            AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
+            http.
+                    addFilter(corsConfig.corsFilter());
+        }
+    }
 }
