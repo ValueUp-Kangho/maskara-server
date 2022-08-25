@@ -6,12 +6,16 @@ import com.server.maskara.domain.response.ListResult;
 import com.server.maskara.domain.user.dto.UserActivityDto;
 import com.server.maskara.domain.user.request.EditFormRequest;
 import com.server.maskara.domain.user.response.UserBasicInfoResponse;
+import com.server.maskara.domain.user.response.UserDetailResponse;
 import com.server.maskara.domain.user.response.UserInfoResponse;
+import com.server.maskara.entity.ActivityRecord;
 import com.server.maskara.entity.User;
 import com.server.maskara.service.ResponseService;
 import com.server.maskara.service.activityRecord.ActivityRecordService;
 import com.server.maskara.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +48,19 @@ public class UserController {
         List<UserActivityDto> userActivityDto = activityRecordService.getUserActivityDtoByUser(user);
 
         return new UserInfoResponse(user.getNickName(), user.getPoint(), user.getResidence(), userActivityDto);
+    }
+
+    @GetMapping("/user/detail")
+    public ResponseEntity<UserDetailResponse> getUserDetail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+
+        User user = userService.findByUsername(id);
+        int countActivityRecord = activityRecordService.getCountActivityRecord(user);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new UserDetailResponse(
+                        user.getNickName(),user.getPoint(),user.getResidence(),countActivityRecord));
     }
 
     @GetMapping("/user/edit")

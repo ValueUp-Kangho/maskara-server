@@ -33,6 +33,10 @@ public class ActivityRecordService {
         return activityDtoList;
     }
 
+    public int getCountActivityRecord(User user){
+        return activityRecordRepository.findByUser(user).size();
+    }
+
     public List<ResidenceRankDto> getResidenceRank() {
         return activityRecordRepository.getResidenceRank();
     }
