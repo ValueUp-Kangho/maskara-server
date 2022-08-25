@@ -1,11 +1,14 @@
 package com.server.maskara.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class ActivityRecord {
 
     @Id
@@ -23,4 +26,5 @@ public class ActivityRecord {
 
     private LocalDateTime date;
     private int maskCount;
+    private String residence;
 }

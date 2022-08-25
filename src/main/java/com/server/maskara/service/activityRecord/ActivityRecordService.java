@@ -1,5 +1,6 @@
 package com.server.maskara.service.activityRecord;
 
+가import com.server.maskara.domain.activityRecord.dto.ResidenceRankDto;
 import com.server.maskara.domain.user.dto.UserActivityDto;
 import com.server.maskara.entity.ActivityRecord;
 import com.server.maskara.entity.User;
@@ -30,5 +31,9 @@ public class ActivityRecordService {
             activityDtoList.add(userActivityDto);
         }
         return activityDtoList;
+    }
+
+    public List<ResidenceRankDto> getResidenceRank() {
+        return activityRecordRepository.getResidenceRank();
     }
 }
