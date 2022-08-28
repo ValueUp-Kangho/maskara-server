@@ -19,9 +19,12 @@ public class MascaraApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("*")
-						.allowedOrigins("localhost:3000", "http://localhost:3000")
-						.allowedMethods("GET", "POST", "PUT", "DELETE");
+				registry.addMapping("/**")
+						.allowedOrigins("*")
+						.allowedMethods("GET", "POST", "PUT", "DELETE")
+						.allowedHeaders("*")
+						.allowCredentials(true)
+						.maxAge(3000);
 			}
 		};
 	}
