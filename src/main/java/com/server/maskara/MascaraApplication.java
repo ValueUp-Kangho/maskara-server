@@ -23,7 +23,7 @@ public class MascaraApplication {
 						.allowedOrigins("*")
 						.allowedMethods("GET", "POST", "PUT", "DELETE")
 						.allowedHeaders("*")
-						.allowCredentials(true)
+//						.allowCredentials(true)
 						.maxAge(3000);
 			}
 		};
