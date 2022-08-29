@@ -8,7 +8,6 @@ import com.server.maskara.domain.user.request.EditFormRequest;
 import com.server.maskara.domain.user.response.UserBasicInfoResponse;
 import com.server.maskara.domain.user.response.UserDetailResponse;
 import com.server.maskara.domain.user.response.UserInfoResponse;
-import com.server.maskara.entity.ActivityRecord;
 import com.server.maskara.entity.User;
 import com.server.maskara.service.ResponseService;
 import com.server.maskara.service.activityRecord.ActivityRecordService;
@@ -23,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -60,7 +60,7 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new UserDetailResponse(
-                        user.getNickName(),user.getPoint(),user.getResidence(),countActivityRecord));
+                        user.getNickName(), user.getPoint(), user.getResidence(), countActivityRecord));
     }
 
     @GetMapping("/user/edit")
@@ -95,5 +95,10 @@ public class UserController {
     public CommonResult delete(@PathVariable long userId) {
         userService.deleteById(userId);
         return responseService.getCommonResult(200, userId + " 회원 삭제");
+    }
+
+    @GetMapping("/health_check")
+    public String healthCheck(HttpServletRequest request) {
+        return request.getRequestURI();
     }
 }
