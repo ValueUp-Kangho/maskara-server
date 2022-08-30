@@ -1,8 +1,13 @@
 package com.server.maskara.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class Store {
 
     @Id
@@ -13,4 +18,6 @@ public class Store {
     private String name;
     private String address;
     private String phoneNumber;
+    private String imgUrl;
+    private String siteUrl;
 }
