@@ -10,8 +10,6 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @AllArgsConstructor
 public class EditFormRequest {
-    @NotEmpty(message = "아이디는 필수 정보입니다.")
-    private String id;
     @NotEmpty(message = "닉네임는 필수 정보입니다.")
     private String nickname;
     @NotEmpty(message = "사는 지역은 필수 정보입니다.")

@@ -72,7 +72,6 @@ public class UserController {
         return new UserBasicInfoResponse(user.getUsername(), user.getNickName(), user.getResidence());
     }
 
-    @Transactional
     @PutMapping("/user/edit")
     public CommonResult modify(@Validated @RequestBody EditFormRequest form, BindingResult bindingResult) {
 
@@ -81,13 +80,9 @@ public class UserController {
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String id = authentication.getName();
-        User user = userService.findByUsername(id);
+        String username = authentication.getName();
 
-        user.setUsername(form.getId());
-        user.setNickName(form.getNickname());
-        user.setResidence(form.getResidence());
-
+        userService.editUserBasicInfo(username, form);
         return responseService.getCommonResult(200, "마이페이지 수정 성공");
     }
 
