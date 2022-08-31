@@ -45,7 +45,7 @@ public class SignController {
                 200, "로그인 성공");
     }
 
-    @PostMapping(value = "/signup")
+    @PostMapping( "/signup")
     public CommonResult signUp(@Valid @RequestBody RegisterFormRequest form, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -54,5 +54,10 @@ public class SignController {
 
         userService.save(form);
         return responseService.getCommonResult(200, form.getNickname() + "님의 회원가입 성공");
+    }
+
+    @PostMapping("/logout")
+    public CommonResult logout() {
+        return responseService.getCommonResult(200, "로그아웃 성공");
     }
 }

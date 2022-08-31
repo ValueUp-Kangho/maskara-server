@@ -9,4 +9,5 @@ import lombok.Data;
 public class ResponseCollectionBox {
     private String name;
     private String address;
+    private String imgUrl;
 }

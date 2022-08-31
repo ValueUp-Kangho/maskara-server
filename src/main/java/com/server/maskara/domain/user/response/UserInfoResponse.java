@@ -12,6 +12,7 @@ import java.util.List;
 public class UserInfoResponse {
     private String nickname;
     private int point;
+    private int maskCount;
     private String residence;
     List<UserActivityDto> activityRecord = new ArrayList<>();
 }

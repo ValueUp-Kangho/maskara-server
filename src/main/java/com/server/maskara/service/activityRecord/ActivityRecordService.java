@@ -55,4 +55,15 @@ public class ActivityRecordService {
     public List<ResidenceRankDto> getResidenceRank() {
         return activityRecordRepository.getResidenceRank();
     }
+
+    public int getMaskCount(User user) {
+        List<ActivityRecord> records = activityRecordRepository.findByUser(user);
+        int maskCount = 0;
+
+        for (ActivityRecord record : records) {
+            maskCount += record.getMaskCount();
+        }
+
+        return maskCount;
+    }
 }
