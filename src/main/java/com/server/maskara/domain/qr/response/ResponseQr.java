@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class ResponseQr {
     private int maskCount;
     private String location;
-    private LocalDate date;
+    private LocalDateTime date;
     private int point;
     private int sumPoint;
 }

@@ -2,7 +2,6 @@ package com.server.maskara.controller.qr;
 
 import com.server.maskara.domain.qr.request.RequestQr;
 import com.server.maskara.domain.qr.response.ResponseQr;
-import com.server.maskara.entity.User;
 import com.server.maskara.service.qr.QrService;
 import com.server.maskara.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class QrControoler {
-
-    private final UserService userService;
+public class QrController {
     private final QrService qrService;
     @PostMapping("/mask")
     public ResponseEntity<ResponseQr> scanQr(@RequestBody RequestQr requestQr) {

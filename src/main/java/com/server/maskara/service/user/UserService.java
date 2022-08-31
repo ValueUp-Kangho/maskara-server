@@ -24,7 +24,7 @@ public class UserService {
 
     public User findByUsername(String username) {
 
-        Optional<User> findUser = userRepository.findByusername(username);
+        Optional<User> findUser = userRepository.findByUsername(username);
 
         if (findUser.isEmpty()) {
             throw new UserNotFoundException();
@@ -55,7 +55,7 @@ public class UserService {
 
     @Transactional
     public void editUserBasicInfo(String username, EditFormRequest form) {
-        Optional<User> findUser = userRepository.findByusername(username);
+        Optional<User> findUser = userRepository.findByUsername(username);
 
         if (findUser.isEmpty()) {
             throw new UserNotFoundException();
@@ -68,7 +68,7 @@ public class UserService {
 
     @Transactional
     public int updateUserPoint(String username) {
-        Optional<User> optUser = userRepository.findByusername(username);
+        Optional<User> optUser = userRepository.findByUsername(username);
 
         if (optUser.isEmpty()) {
             throw new UserNotFoundException();
