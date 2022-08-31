@@ -23,7 +23,7 @@ public class CollectionBoxController {
         CollectionBox collectionBox = collectionBoxService.getCollectionBoxById(id);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseCollectionBox(collectionBox.getName(), collectionBox.getAddress()));
+                .body(new ResponseCollectionBox(collectionBox.getName(), collectionBox.getAddress(), collectionBox.getImgUrl()));
     }
 
     @GetMapping("/collectionbox")

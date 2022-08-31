@@ -46,8 +46,9 @@ public class UserController {
 
         User user = userService.findByUsername(id);
         List<UserActivityDto> userActivityDto = activityRecordService.getUserActivityDtoByUser(user);
+        int maskCount = activityRecordService.getMaskCount(user);
 
-        return new UserInfoResponse(user.getNickName(), user.getPoint(), user.getResidence(), userActivityDto);
+        return new UserInfoResponse(user.getNickName(), user.getPoint(), maskCount, user.getResidence(), userActivityDto);
     }
 
     @GetMapping("/user/detail")

@@ -14,9 +14,10 @@ public class CollectionBox {
 
     private String name;
     private String serialNumber;
+    private String imgUrl;
     private String address;
+    private String institutions;
+
     private Double latitude;
     private Double longitude;
-
-    private String institutions;
 }
