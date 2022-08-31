@@ -1,5 +1,6 @@
 package com.server.maskara.service.user;
 
+import com.server.maskara.domain.user.request.EditFormRequest;
 import com.server.maskara.domain.user.request.RegisterFormRequest;
 import com.server.maskara.entity.User;
 import com.server.maskara.advice.exception.UserNotFoundException;
@@ -7,6 +8,7 @@ import com.server.maskara.respository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -49,5 +51,18 @@ public class UserService {
 
     public void deleteById(long userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Transactional
+    public void editUserBasicInfo(String username, EditFormRequest form) {
+        Optional<User> findUser = userRepository.findByusername(username);
+
+        if (findUser.isEmpty()) {
+            throw new UserNotFoundException();
+        }
+
+        User user = findUser.get();
+        user.setNickName(form.getNickname());
+        user.setResidence(form.getResidence());
     }
 }
