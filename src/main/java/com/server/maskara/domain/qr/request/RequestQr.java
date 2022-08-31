@@ -1,6 +1,6 @@
 package com.server.maskara.domain.qr.request;
 
-import lombok.Data;
+import lombok.Getter;
 
 @Getter
 public class RequestQr {
