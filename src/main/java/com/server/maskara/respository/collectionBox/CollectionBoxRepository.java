@@ -4,6 +4,8 @@ import com.server.maskara.entity.CollectionBox;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CollectionBoxRepository extends JpaRepository<CollectionBox, Long> {
+    Optional<CollectionBox> findBySerialNumber(String serialNumber);
 }

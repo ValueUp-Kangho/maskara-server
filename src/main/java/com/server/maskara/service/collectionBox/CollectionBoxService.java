@@ -25,4 +25,13 @@ public class CollectionBoxService {
 
         return collectionBox.get();
     }
+
+    public CollectionBox getCollectionBoxBySerialNumber(String serialNumber) {
+        Optional<CollectionBox> optCollectionBox = collectionBoxRepository.findBySerialNumber(serialNumber);
+
+        if (optCollectionBox.isEmpty())
+            throw new RuntimeException();
+
+        return optCollectionBox.get();
+    }
 }
