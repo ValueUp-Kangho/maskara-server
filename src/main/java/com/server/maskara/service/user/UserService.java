@@ -65,18 +65,4 @@ public class UserService {
         user.setNickName(form.getNickname());
         user.setResidence(form.getResidence());
     }
-
-    @Transactional
-    public int updateUserPoint(String username) {
-        Optional<User> optUser = userRepository.findByUsername(username);
-
-        if (optUser.isEmpty()) {
-            throw new UserNotFoundException();
-        }
-
-        User user = optUser.get();
-        user.setPoint(user.getPoint() + 1);
-
-        return user.getPoint();
-    }
 }
