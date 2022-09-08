@@ -37,6 +37,7 @@ public class SecurityConfig {
 
                 .authorizeRequests()
                 .antMatchers("/*/login", "/*/login/**", "/*/signup", "/*/signup/**").permitAll()
+                .antMatchers("/v2/api-docs", "/swagger*/**").permitAll()
                 .anyRequest().hasRole("USER")
 
                 .and()
