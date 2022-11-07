@@ -27,14 +27,14 @@
 
 🐮 최윤호(Backend) : https://github.com/choiyunh
 
+## ⭐️ UI 소개
+<img width="1127" alt="image" src="https://user-images.githubusercontent.com/71378475/200326305-dd5e68e7-a910-496e-ad8b-299c8b200a85.png">
+
 ## ⭐️ 시스템 구성도
+<img width="1300" alt="image" src="https://user-images.githubusercontent.com/71378475/200323740-a96f1e36-68ec-4e28-bb56-98786f3ead9a.png">
 
 ## ⭐️ Cloud(AWS) 구성도
 ![maskara_aws_architecture drawio](https://user-images.githubusercontent.com/22043939/190981732-8219d5f9-13d6-4ace-973b-c0f355223cd6.png)
 
 ## ⭐️ ERD
-
-## ⭐️ Spring Directory 구성도
-
-## ⭐️ 화면 설계 및 소개
-
+<img width="704" alt="image" src="https://user-images.githubusercontent.com/71378475/200324704-bfdcc3fb-9d4c-4aeb-8eaa-e27048526b5f.png">
